@@ -1,15 +1,15 @@
-const stripe = require('stripe')('sk_test_51Q8MRqGSjZtAURCZksvd18sFnmQHX7p2PBaLcAYKJBu3FuAIOA5ErqL97laTLYMsm3ACVLGTenjEj71e2iYtrSPg00Jw4nMLqy'); // Je private Stripe key
+const stripe = require('stripe')('sk_test_51Q8MRqGSjZtAURCZksvd18sFnmQHX7p2PBaLcAYKJBu3FuAIOA5ErqL97laTLYMsm3ACVLGTenjEj71e2iYtrSPg00Jw4nMLqy');
 const express = require('express');
 const app = express();
 app.use(express.static('public'));
 app.use(express.json());
 
-// Root route
+// Root route (hoofdroute)
 app.get('/', (req, res) => {
-  res.send('Server is running. To start a session, POST to /create-checkout-session.');
+  res.send('Server is running. Go to /create-checkout-session to start a session.');
 });
 
-// Route voor Stripe Checkout-sessie
+// Route voor het starten van de checkout-sessie
 app.post('/create-checkout-session', async (req, res) => {
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['ideal', 'card'],
@@ -20,7 +20,7 @@ app.post('/create-checkout-session', async (req, res) => {
           product_data: {
             name: 'Plan to Improve Mental Health',
           },
-          unit_amount: req.body.price, // Prijs in centen
+          unit_amount: req.body.price, // De prijs van het product in centen
         },
         quantity: 1,
       },
