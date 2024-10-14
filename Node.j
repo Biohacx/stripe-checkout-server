@@ -1,8 +1,13 @@
-const stripe = require('stripe')('sk_test_51Q8MRqGSjZtAURCZksvd18sFnmQHX7p2PBaLcAYKJBu3FuAIOA5ErqL97laTLYMsm3ACVLGTenjEj71e2iYtrSPg00Jw4nMLqy'); // Vervang 'your-secret-key' door jouw private Stripe sleutel
+const stripe = require('stripe')('sk_test_51Q8MRqGSjZtAURCZksvd18sFnmQHX7p2PBaLcAYKJBu3FuAIOA5ErqL97laTLYMsm3ACVLGTenjEj71e2iYtrSPg00Jw4nMLqy');
 const express = require('express');
 const app = express();
 app.use(express.static('public'));
 app.use(express.json());
+
+// Root route
+app.get('/', (req, res) => {
+  res.send('Server is running. Go to /create-checkout-session to start a session.');
+});
 
 app.post('/create-checkout-session', async (req, res) => {
   const session = await stripe.checkout.sessions.create({
@@ -28,3 +33,4 @@ app.post('/create-checkout-session', async (req, res) => {
 });
 
 app.listen(3000, () => console.log('Server running on port 3000'));
+
