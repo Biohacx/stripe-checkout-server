@@ -27,11 +27,4 @@ app.post('/create-checkout-session', async (req, res) => {
     ],
     mode: 'payment',
     success_url: 'https://www.biohacx.com/', // Pas dit aan naar jouw succes-URL
-    cancel_url: 'https://www.biohacx.com/',  // Pas dit aan naar jouw annulerings-URL
-  });
-
-  res.json({ id: session.id });
-});
-
-// Zet de server op om te luisteren op poort 3000
-app.listen(3000, () => console.log('Server running on port 3000'));
+    cancel_url: 'https://www.biohacx.com/',  // Pas dit aan naar
