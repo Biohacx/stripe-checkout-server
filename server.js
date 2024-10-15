@@ -4,12 +4,10 @@ const app = express();
 app.use(express.static('public'));
 app.use(express.json());
 
-// Root route (hoofdroute)
 app.get('/', (req, res) => {
   res.send('Server is running. Go to /create-checkout-session to start a session.');
 });
 
-// Route voor het starten van de checkout-sessie
 app.post('/create-checkout-session', async (req, res) => {
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['ideal', 'card'],
@@ -20,7 +18,7 @@ app.post('/create-checkout-session', async (req, res) => {
           product_data: {
             name: 'Plan to Improve Mental Health',
           },
-          unit_amount: req.body.price, // De prijs van het product in centen
+          unit_amount: req.body.price,
         },
         quantity: 1,
       },
